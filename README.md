@@ -1,4 +1,4 @@
-# 🚆 RailMate – Flutter Application  
+# 🚆 TrainTracker – Flutter Application  
 
 A **modern cross-platform mobile app** built with **Flutter** that replicates the core features of the popular Indian app *Where Is My Train*. This project integrates **Supabase** as the backend database and authentication layer, enabling real-time train tracking, PNR status checks, and offline caching for a seamless user experience.  
 
@@ -54,14 +54,19 @@ lib/
 - Install [Android Studio](https://developer.android.com/studio) or Xcode (for iOS)  
 - Install [Supabase CLI](https://supabase.com/docs/guides/cli)  
 
-### 2️⃣ Clone Repository  
-```bash
-git clone https://github.com/iamdheerajjain/RailMate.git
+---
 
-🗄️ Database Schema (Supabase)
+## 🗄️ Database Schema (Supabase)
 
 stations → (id, code, name, state)
 trains → (id, number, name, source, destination)
 train_schedule → (id, train_id, station_id, arrival_time, departure_time, day)
 users → (id, email, password_hash, created_at)
 search_history → (id, user_id, train_id, timestamp)
+
+---
+
+## 📸 Output Preview
+![op1](op1.png)
+![op2](op2.png)
+![op1](op3.png)
