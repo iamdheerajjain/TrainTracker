@@ -1,134 +1,67 @@
-# Flutter
+# 🚆 RailMate – Flutter Application  
 
-A modern Flutter-based mobile application utilizing the latest mobile development technologies and tools for building responsive cross-platform applications.
+A **modern cross-platform mobile app** built with **Flutter** that replicates the core features of the popular Indian app *Where Is My Train*. This project integrates **Supabase** as the backend database and authentication layer, enabling real-time train tracking, PNR status checks, and offline caching for a seamless user experience.  
 
-## 📋 Prerequisites
+---
 
-- Flutter SDK (^3.29.2)
-- Dart SDK
-- Android Studio / VS Code with Flutter extensions
-- Android SDK / Xcode (for iOS development)
+## ✨ Features  
 
-## 🛠️ Installation
+- 🔎 **Search Trains** – Find trains between two stations with smart station suggestions.  
+- 🚉 **Live Train Status** – View real-time running information of trains (delays, arrivals, departures).  
+- 📄 **PNR Status Check** – Get ticket confirmation updates.  
+- 📌 **Saved Searches** – Store recent and favorite train searches for quick access.  
+- 📶 **Offline Mode** – Cache schedules locally using SQLite for low-network scenarios.  
+- 🔔 **Notifications** – Push alerts for train delays and arrivals.  
+- 🔐 **Authentication** – User login & signup with Supabase Auth (email/password, OTP, or social login).  
 
-1. Install dependencies:
+---
+
+## 🏗️ Tech Stack  
+
+**Frontend (Mobile App):**  
+- [Flutter](https://flutter.dev/)  
+- [Dart](https://dart.dev/)  
+- [Provider / Riverpod](https://riverpod.dev/) (state management)  
+- [SQLite](https://pub.dev/packages/sqflite) for local offline caching  
+
+**Backend & Database:**  
+- [Supabase](https://supabase.com/) (Postgres + Auth + Realtime)  
+- REST APIs (custom endpoints for train data simulation)  
+
+**DevOps / Tools:**  
+- Android Studio & Xcode for builds  
+- GitHub Actions / CI for automated builds  
+
+---
+
+## 📂 Project Structure  
+
+lib/
+├─ main.dart # Entry point
+├─ screens/ # UI screens (Home, Train Status, PNR, Profile)
+├─ widgets/ # Reusable widgets (cards, lists, loaders)
+├─ services/ # API & Supabase service calls
+├─ models/ # Data models (Train, Station, User)
+├─ providers/ # State management logic
+└─ utils/ # Helpers (formatters, constants)
+
+---
+
+## ⚡ Getting Started  
+
+### 1️⃣ Prerequisites  
+- Install [Flutter SDK](https://flutter.dev/docs/get-started/install)  
+- Install [Android Studio](https://developer.android.com/studio) or Xcode (for iOS)  
+- Install [Supabase CLI](https://supabase.com/docs/guides/cli)  
+
+### 2️⃣ Clone Repository  
 ```bash
-flutter pub get
-```
+git clone https://github.com/iamdheerajjain/RailMate.git
 
-2. Run the application:
+🗄️ Database Schema (Supabase)
 
-To run the app with environment variables defined in an env.json file, follow the steps mentioned below:
-1. Through CLI
-    ```bash
-    flutter run --dart-define-from-file=env.json
-    ```
-2. For VSCode
-    - Open .vscode/launch.json (create it if it doesn't exist).
-    - Add or modify your launch configuration to include --dart-define-from-file:
-    ```json
-    {
-        "version": "0.2.0",
-        "configurations": [
-            {
-                "name": "Launch",
-                "request": "launch",
-                "type": "dart",
-                "program": "lib/main.dart",
-                "args": [
-                    "--dart-define-from-file",
-                    "env.json"
-                ]
-            }
-        ]
-    }
-    ```
-3. For IntelliJ / Android Studio
-    - Go to Run > Edit Configurations.
-    - Select your Flutter configuration or create a new one.
-    - Add the following to the "Additional arguments" field:
-    ```bash
-    --dart-define-from-file=env.json
-    ```
-
-## 📁 Project Structure
-
-```
-flutter_app/
-├── android/            # Android-specific configuration
-├── ios/                # iOS-specific configuration
-├── lib/
-│   ├── core/           # Core utilities and services
-│   │   └── utils/      # Utility classes
-│   ├── presentation/   # UI screens and widgets
-│   │   └── splash_screen/ # Splash screen implementation
-│   ├── routes/         # Application routing
-│   ├── theme/          # Theme configuration
-│   ├── widgets/        # Reusable UI components
-│   └── main.dart       # Application entry point
-├── assets/             # Static assets (images, fonts, etc.)
-├── pubspec.yaml        # Project dependencies and configuration
-└── README.md           # Project documentation
-```
-
-## 🧩 Adding Routes
-
-To add new routes to the application, update the `lib/routes/app_routes.dart` file:
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:package_name/presentation/home_screen/home_screen.dart';
-
-class AppRoutes {
-  static const String initial = '/';
-  static const String home = '/home';
-
-  static Map<String, WidgetBuilder> routes = {
-    initial: (context) => const SplashScreen(),
-    home: (context) => const HomeScreen(),
-    // Add more routes as needed
-  }
-}
-```
-
-## 🎨 Theming
-
-This project includes a comprehensive theming system with both light and dark themes:
-
-```dart
-// Access the current theme
-ThemeData theme = Theme.of(context);
-
-// Use theme colors
-Color primaryColor = theme.colorScheme.primary;
-```
-
-The theme configuration includes:
-- Color schemes for light and dark modes
-- Typography styles
-- Button themes
-- Input decoration themes
-- Card and dialog themes
-
-## 📱 Responsive Design
-
-The app is built with responsive design using the Sizer package:
-
-```dart
-// Example of responsive sizing
-Container(
-  width: 50.w, // 50% of screen width
-  height: 20.h, // 20% of screen height
-  child: Text('Responsive Container'),
-)
-```
-## 📦 Deployment
-
-Build the application for production:
-
-```bash
-# For Android
-flutter build apk --release
-
-# For iOS
-flutter build ios --release
+stations → (id, code, name, state)
+trains → (id, number, name, source, destination)
+train_schedule → (id, train_id, station_id, arrival_time, departure_time, day)
+users → (id, email, password_hash, created_at)
+search_history → (id, user_id, train_id, timestamp)
